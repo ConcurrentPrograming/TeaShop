@@ -6,7 +6,7 @@
 
 
 start(N) ->
-	register(orderList, spawn(main, order())),
+	register(orderList, spawn(queue, order())),
     register(owner, spawn(main, XXXXXXXX, [])),   %% XXXXXX == some function!
     register(chef, spawn(main, XXXXXXXX, [])),    %% XXXXXX == some function!
 	enterCustomers(N).
@@ -25,11 +25,5 @@ enterCustomers(N) when N > 0 ->
 
 
 
-order() ->
-	receive
-		{done, cust_pid} -> ;
-			%%kunden är klar o lämnar!!!
-		{order, cust_pid} ->
-			%%kunden beställer en till kopp!!!
-	end.
+
 	

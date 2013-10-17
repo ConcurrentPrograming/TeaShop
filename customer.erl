@@ -5,7 +5,8 @@
 
 init_customer(orderList) ->
 	%% N = slumpa antal koppar som denna kund vill dricka
-	N = random:uniform(15) + 1.
+	N = random:uniform(15) + 1,
+	owner ! {hello, self()},
 	order(N, orderList).
 
 
