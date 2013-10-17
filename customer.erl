@@ -13,9 +13,8 @@ init_customer() ->
 
 enterCustomers(0) -> 0;
 enterCustomers(N) when N > 0 ->
-	cust_pid = spawn(customer, init_customer),
-	
-	%% wait???
+	spawn(customer, init_customer),
+	%% wait???  time between customers entering!
 	enterCustomer(N-1).
 
 
