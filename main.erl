@@ -5,7 +5,7 @@
 
 
 start(N) ->
-	register(orderList, spawn(queue, queue:order())),
+	register(orderList, spawn(orderqueue, orderqueue:order())),
     register(owner, spawn(owner, owner:work())),
     register(chef, spawn(chef, chef:work())),
 	customer:enterCustomers(N).
