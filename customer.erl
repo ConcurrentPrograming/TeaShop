@@ -5,6 +5,7 @@
 
 init_customer(orderList) ->
 	%% N = slumpa antal koppar som denna kund vill dricka
+	
 	order(N, orderList).
 
 
