@@ -6,6 +6,8 @@ init_owner() ->
 	List = [],
 	work().
 
+
+
 work() ->
 	receive
 		{hello, PID} ->
