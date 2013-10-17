@@ -1,9 +1,12 @@
 -module(orderqueue).
--export([order/0]).
+-export([init_orderqueue/0]).
 
+init_orderqueue() ->
+	List = [],
+	order().
 
 order() ->
 	receive
 		{order, PID} -> 	%%kunden beställer en till kopp!!!
-			io:format("hej hej hej"+ PID)
+			List = List | PID
 	end.

@@ -3,12 +3,13 @@
 
 
 init_owner() ->
+	List = [],
 	work().
 
 work() ->
 	receive
 		{hello, PID} ->
-			io:format("hej hej from owner");
+			List = PID | List;
 		{bye, PID} -> 
 			io:format("hej hej hej då från owner")
 	end.

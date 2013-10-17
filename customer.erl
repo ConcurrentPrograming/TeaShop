@@ -3,22 +3,17 @@
 -export([init_customer/0, enterCustomers/1]).
 
 
+enterCustomers(0) -> 0;
+enterCustomers(N) when N > 0 ->
+	PID = spawn(customer, init_customer),
+	getOwner() ! {hello, PID}, %% säg hej till ägaren!!!
+	%% wait???  time between customers entering!
+	enterCustomers(N-1).
 
 init_customer() ->
 	%% N = slumpa antal koppar som denna kund vill dricka
 	N = random:uniform(15) + 1,
-	getOwner() ! {hello, self()}, %% säg hej till ägaren!!!
 	order(N).
-
-
-enterCustomers(0) -> 0;
-enterCustomers(N) when N > 0 ->
-	spawn(customer, init_customer),
-	%% wait???  time between customers entering!
-	enterCustomers(N-1).
-
-
-
 
 
 order(0) ->
