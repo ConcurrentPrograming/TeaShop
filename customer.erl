@@ -5,7 +5,7 @@
 
 init_customer(orderList) ->
 	%% N = slumpa antal koppar som denna kund vill dricka
-	
+	N = random:uniform(15) + 1.
 	order(N, orderList).
 
 
