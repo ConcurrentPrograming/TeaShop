@@ -1,6 +1,9 @@
 -module(chef).
--export([work/0]).
+-export([init_chef/0]).
 
+
+init_chef() ->
+	work().
 
 work() ->
 	receive

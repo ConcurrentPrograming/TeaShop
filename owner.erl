@@ -1,6 +1,9 @@
 -module(owner).
--export([work/0]).
+-export([init_owner/0]).
 
+
+init_owner() ->
+	work().
 
 work() ->
 	receive

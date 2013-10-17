@@ -6,8 +6,8 @@
 
 start(N) ->
 	register(orderList, spawn(orderqueue, orderqueue:order())),
-    register(owner, spawn(owner, owner:work())),
-    register(chef, spawn(chef, chef:work())),
+    register(owner, spawn(owner, owner:init_owner())),
+    register(chef, spawn(chef, chef:init_chef())),
 	customer:enterCustomers(N).
 
 getOrderList() -> orderList.
