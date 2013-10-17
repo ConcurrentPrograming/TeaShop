@@ -1,7 +1,7 @@
 -module(main).
 -export([start/1]).
 
-Cust_list = []
+Cust_list = [].
 
 
 start(N) ->
