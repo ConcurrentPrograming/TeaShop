@@ -4,6 +4,6 @@
 
 order() ->
 	receive
-		{order, cust_pid} -> 	%%kunden beställer en till kopp!!!
-			io:format("hej hej hej")
+		{order, PID} -> 	%%kunden beställer en till kopp!!!
+			io:format("hej hej hej"+ PID)
 	end.

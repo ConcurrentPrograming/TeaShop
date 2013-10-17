@@ -5,6 +5,7 @@
 work() ->
 	receive
 		{hello, PID} ->
+			
 		{bye, PID} -> 
 
 	end.
