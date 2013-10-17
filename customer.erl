@@ -26,7 +26,7 @@ order(0) ->
 order(N) -> 
 	getOrderList() ! {order, self()},
 	receive
-		cup -> 0
+		cup -> 0,
 			%%kunden får en kopp te
 			%%wait   == tiden det tar o dricka en kopp!
 		lastCall -> 0
