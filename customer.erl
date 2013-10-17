@@ -7,7 +7,7 @@
 init_customer() ->
 	%% N = slumpa antal koppar som denna kund vill dricka
 	N = random:uniform(15) + 1,
-	getOwner ! {hello, self()}, %% säg hel till ägaren!!!
+	getOwner() ! {hello, self()}, %% säg hel till ägaren!!!
 	order(N).
 
 
@@ -22,7 +22,7 @@ enterCustomers(N) when N > 0 ->
 
 
 order(0) ->
-	getOwner ! {bye, self()};
+	getOwner() ! {bye, self()};
 order(N) -> 
 	getOrderList() ! {order, self()},
 	receive
