@@ -3,10 +3,11 @@
 
 init_orderqueue() ->
 	List = [],
-	order().
+	order(List).
 
-order() ->
+order(List) ->
 	receive
 		{order, PID} -> 	%%kunden beställer en till kopp!!!
-			List = List | PID
+			List = [List | PID],
+			order(List)
 	end.

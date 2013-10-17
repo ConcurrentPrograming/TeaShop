@@ -4,14 +4,16 @@
 
 init_owner() ->
 	List = [],
-	work().
+	work(List).
 
 
 
-work() ->
+work(List) ->
 	receive
 		{hello, PID} ->
-			List = PID | List;
+			List = [PID | List],
+			work(List);
 		{bye, PID} -> 
-			io:format("hej hej hej då från owner")
+			io:format("hej hej hej då från owner"),   %%%  ta bort pid ur lista!!!
+			work(List)
 	end.
