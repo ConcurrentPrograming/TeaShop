@@ -3,7 +3,7 @@
 
 
 
-
+start(0) -> 0;
 start(N) ->
 	register(orderList, spawn(orderqueue, orderqueue:order())),
     register(owner, spawn(owner, owner:init_owner())),
