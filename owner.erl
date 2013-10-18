@@ -14,10 +14,15 @@ work(List) ->
 	receive
 		{hello, PID} ->
 			io:format("Customer ~p said hello to owner~n", [PID]),
-			NewList = [PID | List],
+			NewList = lists:append([PID],List),
 			work(NewList);
 		{bye, PID} -> 
 			io:format("Customer ~p said Bye Bye to owner~n", [PID]),
 			NewList = lists:delete(PID, List),
-			work(NewList)
+			work(NewList);
+		{serve, Customer} ->
+			Customer ! cup;
+		listNotEmpty ->
+			main:getOrderList() ! {checkorder, self()}
+			
 	end.

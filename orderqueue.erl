@@ -6,13 +6,19 @@ init_orderqueue() ->
 	order(List).
 
 order(List) ->
-	%io:format("orderqueue:order(List) (~p) where List=~w~n", [self(),List]),
+	io:format("orderqueue:order(List) (~p) where List=~w~n", [self(),List]),
 	receive
-		{order, PID} -> 	%%kunden beställer en till kopp!!!
-			NewList = lists:append([PID],List),
+		{order, PID} -> 	%customer order a cup!
+			NewList = lists:append(List,[PID]),
+			main:getOwner() ! listNotEmpty,
+			main:getChef() ! listNotEmpty,
 			order(NewList);
-		{checkorder, PID} ->
+		{checkorder, PID} ->  % PID being either owner or chef!
 			case List of 
-				[X|XS] -> 0;
-				[] -> 0
+				[X|XS] -> 
+					PID ! {serve, X}, % X being the customer that should be served by PID (owner/chef)
+					order(XS);
+				[] -> 
+					order(List)
+			end
 	end.

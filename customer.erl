@@ -20,10 +20,13 @@ order(0) ->
 	main:getOwner() ! {bye, self()};
 order(N) -> 
 	main:getOrderList() ! {order, self()},
-	%receive
-	%	cup -> 0;
-	%		%%kunden får en kopp te
-	%		%%wait   == tiden det tar o dricka en kopp!
-	%	lastCall -> 0
-	%end,
-	order(N-1).
+	io:format("Customer 1 ~n"),
+	receive
+		cup -> 
+			%%kunden får en kopp te
+			%%wait   == tiden det tar o dricka en kopp!
+			io:format("Customer 2 "),
+			order(N-1); %% tillsvidare
+		lastCall -> 0
+	end.
+	
