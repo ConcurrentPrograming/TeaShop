@@ -1,12 +1,11 @@
 -module(customer).
--import(main, [getOrderList/0, getOwner/0]).
 -export([init_customer/0, enterCustomers/1]).
 
 
 enterCustomers(0) -> 0;
 enterCustomers(N) when N > 0 ->
 	PID = spawn(customer, init_customer),
-	getOwner() ! {hello, PID}, %% säg hej till ägaren!!!
+	main:getOwner() ! {hello, PID}, %% säg hej till ägaren!!!
 	%% wait???  time between customers entering!
 	enterCustomers(N-1).
 
@@ -17,9 +16,9 @@ init_customer() ->
 
 
 order(0) ->
-	getOwner() ! {bye, self()};
+	main:getOwner() ! {bye, self()};
 order(N) -> 
-	getOrderList() ! {order, self()},
+	main:getOrderList() ! {order, self()},
 	receive
 		cup -> 0;
 			%%kunden får en kopp te
