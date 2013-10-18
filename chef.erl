@@ -7,10 +7,10 @@ init_chef() ->
 	work().
 
 work() ->
-	io:format("Chef is working ~n"),
+	%io:format("Chef is working ~n"),
 	receive
 		{serve, Customer} ->
 			Customer ! cup;
-		listNotEmpty ->
+		list_not_empty ->
 			main:getOrderList() ! {checkorder, self()}
 	end.

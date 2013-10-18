@@ -22,7 +22,6 @@ work(List) ->
 			work(NewList);
 		{serve, Customer} ->
 			Customer ! cup;
-		listNotEmpty ->
+		list_not_empty ->
 			main:getOrderList() ! {checkorder, self()}
-			
 	end.

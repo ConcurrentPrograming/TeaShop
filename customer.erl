@@ -20,7 +20,6 @@ order(0) ->
 	main:getOwner() ! {bye, self()};
 order(N) -> 
 	main:getOrderList() ! {order, self()},
-	io:format("Customer 1 ~n"),
 	receive
 		cup -> 
 			%%kunden får en kopp te
