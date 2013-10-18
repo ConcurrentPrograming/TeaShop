@@ -4,6 +4,7 @@
 
 enterCustomers(0) -> 0;
 enterCustomers(N) when N > 0 ->
+	io:format("customer will be spawn ~n"),
 	spawn(customer, init_customer()),
 	%% wait???  time between customers entering!
 	enterCustomers(N-1).

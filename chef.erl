@@ -3,11 +3,11 @@
 
 
 init_chef() ->
-	io:format("chef is initiated ~n"),
+	io:format("chef is initiated ~p~n", [self()]),
 	work().
 
 work() ->
-	io:format("chef is working ~n").
+	io:format("Chef is working ~n").
 	%receive
 	%	{hello, PID} ->
 	%		io:format("hej hej from chef");

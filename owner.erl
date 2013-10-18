@@ -3,7 +3,7 @@
 
 
 init_owner() ->
-	io:format("owner is initiated ~n"),
+	io:format("owner is initiated ~p~n",[self()]),
 	List = [],
 	work(List).
 
