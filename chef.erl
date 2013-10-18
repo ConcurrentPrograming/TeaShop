@@ -6,9 +6,10 @@ init_chef() ->
 	work().
 
 work() ->
-	receive
-		{hello, PID} ->
-			io:format("hej hej from chef");
-		{bye, PID} -> 
-			io:format("hej hej hej då från chef")
-	end.
+	io:format("Chef started to work -n").
+	%receive
+	%	{hello, PID} ->
+	%		io:format("hej hej from chef");
+	%	{bye, PID} -> 
+	%		io:format("hej hej hej då från chef")
+	%end.

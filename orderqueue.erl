@@ -6,9 +6,9 @@ init_orderqueue() ->
 	order(List).
 
 order(List) ->
-	io:format("orderqueue:order(List) where List=~w~n", [List]),
-	receive
-		{order, PID} -> 	%%kunden beställer en till kopp!!!
-			List = [List | PID],
-			order(List)
-	end.
+	io:format("orderqueue:order(List) where List=~w~n", [List]).
+	%receive
+	%	{order, PID} -> 	%%kunden beställer en till kopp!!!
+	%		List = [List | PID],
+	%		order(List)
+	%end.
