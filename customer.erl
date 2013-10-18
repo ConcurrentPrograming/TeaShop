@@ -9,9 +9,10 @@ enterCustomers(N) when N > 0 ->
 	enterCustomers(N-1).
 
 init_customer() ->
-	main:getOwner() ! {hello, self()}, %% säg hej till ägaren!!!
 	%% N = slumpa antal koppar som denna kund vill dricka
 	N = random:uniform(15) + 1,
+	io:format("Customer ~p~n enterd and is planing to drink ~w~n cupps of tea", [self(), N]),
+	main:getOwner() ! {hello, self()}, %% säg hej till ägaren!!!
 	order(N).
 
 

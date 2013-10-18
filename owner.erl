@@ -9,6 +9,7 @@ init_owner() ->
 
 
 work(List) ->
+	io:format("hej hej hej då från owner"),
 	receive
 		{hello, PID} ->
 			List = [PID | List],
