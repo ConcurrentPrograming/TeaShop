@@ -10,12 +10,14 @@ init_owner() ->
 
 
 work(List) ->
-	io:format("owner is working ~n").
-	%receive
-	%	{hello, PID} ->
-	%		List = [PID | List],
-	%		work(List);
-	%	{bye, PID} -> 
-	%		io:format("hej hej hej då från owner"),   %%%  ta bort pid ur lista!!!
-	%		work(List)
-	%end.
+	%io:format("List=~w~n", [List]),
+	receive
+		{hello, PID} ->
+			io:format("Customer ~p said hello to owner~n", [PID]),
+			NewList = [PID | List],
+			work(NewList);
+		{bye, PID} -> 
+			io:format("Customer ~p said Bye Bye to owner~n", [PID]),
+			NewList = lists:delete(PID, List),
+			work(NewList)
+	end.

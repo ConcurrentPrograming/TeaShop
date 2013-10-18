@@ -4,7 +4,6 @@
 
 enterCustomers(0) -> 0;
 enterCustomers(N) when N > 0 ->
-	io:format("customer will be spawn ~n"),
 	spawn(fun() -> init_customer() end),
 	%% wait???  time between customers entering!
 	enterCustomers(N-1).
@@ -12,7 +11,7 @@ enterCustomers(N) when N > 0 ->
 init_customer() ->
 	%% N = slumpa antal koppar som denna kund vill dricka
 	N = random:uniform(15) + 1,
-	io:format("Customer ~p enterd and is planing to drink ~w~n cupps of tea", [self(), N]),
+	io:format("Customer ~p enterd and is planing to drink ~w cupps of tea ~n", [self(), N]),
 	main:getOwner() ! {hello, self()}, %% säg hej till ägaren!!!
 	order(N).
 
