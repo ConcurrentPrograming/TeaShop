@@ -5,10 +5,10 @@
 
 start(0) -> io:format("main:start(0) ");
 start(N) ->
-	io:format("main:start(N) where N=~w~n", [N]),
-	register(orderList, spawn(orderqueue, orderqueue:init_orderqueue(), [])),
-	register(owner, spawn(owner, owner:init_owner(), [])),
-	register(chef, spawn(chef, chef:init_chef(), [])),
+	io:format("main:start(N) where N=~w, ~p~n", [N, self()]),
+	register(orderList, spawn(fun() -> orderqueue:init_orderqueue() end)),
+	register(owner, spawn(fun() -> owner:init_owner() end)),
+	register(chef, spawn(fun() -> chef:init_chef() end)),
 	customer:enterCustomers(N).
 
 getOrderList() -> orderList.
