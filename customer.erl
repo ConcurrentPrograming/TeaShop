@@ -4,12 +4,12 @@
 
 enterCustomers(0) -> 0;
 enterCustomers(N) when N > 0 ->
-	PID = spawn(customer, init_customer),
-	main:getOwner() ! {hello, PID}, %% säg hej till ägaren!!!
+	spawn(customer, init_customer),
 	%% wait???  time between customers entering!
 	enterCustomers(N-1).
 
 init_customer() ->
+	main:getOwner() ! {hello, self()}, %% säg hej till ägaren!!!
 	%% N = slumpa antal koppar som denna kund vill dricka
 	N = random:uniform(15) + 1,
 	order(N).
