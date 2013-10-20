@@ -21,6 +21,7 @@ work(List) ->
 			NewList = lists:delete(PID, List),
 			work(NewList);
 		{serve, Customer} ->
+			io:format("Owner is serving a cup of tea to customer ~p~n",[Customer]),
 			Customer ! cup;
 		list_not_empty ->
 			main:getOrderList() ! {checkorder, self()}

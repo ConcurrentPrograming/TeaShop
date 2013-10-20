@@ -24,7 +24,7 @@ order(N) ->
 		cup -> 
 			%%kunden får en kopp te
 			%%wait   == tiden det tar o dricka en kopp!
-			io:format("Customer 2 "),
+			io:format("Customer ~p recived a cup of tea~n",[self()]),
 			order(N-1); %% tillsvidare
 		lastCall -> 0
 	end.
