@@ -10,7 +10,7 @@ enterCustomers(N) when N > 0 ->
 
 init_customer() ->
 	%% N = slumpa antal koppar som denna kund vill dricka
-	N = random:uniform(15) + 1,
+	N = crypto:rand_uniform(1, 15),	
 	io:format("Customer ~p enterd and is planing to drink ~w cupps of tea ~n", [self(), N]),
 	main:getOwner() ! {hello, self()}, %% säg hej till ägaren!!!
 	order(N).
