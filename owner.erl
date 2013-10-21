@@ -4,8 +4,8 @@
 
 init_owner() ->
 	io:format("owner is initiated ~p~n",[self()]),
-	clock:setAlarm({5,0,0}, close),
-	clock:setAlarm({4,50,0}, last_call),
+	clock:setAlarm({3,0,0}, close),
+	clock:setAlarm({2,50,0}, last_call),
 	List = [],
 	work(List,{0,0,0}).
 
@@ -28,7 +28,8 @@ work(List, {E,H,L}) ->  % E= enterd H= hello L= leave
 			lastCall(List,List, {E,H,L}),
 			work(List, {E,H,L});
 		close -> 
-			main:getChef ! close;
+			main:getChef() ! close,
+			work(List, {E,H,L});
 		{serve, Customer} ->
 			io:format("Owner is serving a cup of tea to customer ~p~n",[Customer]),
 			Customer ! cup,
