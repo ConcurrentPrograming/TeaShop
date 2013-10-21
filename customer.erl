@@ -5,7 +5,6 @@
 enterCustomers(0) -> 0;
 enterCustomers(N) when N > 0 ->
 	spawn(fun() -> init_customer() end),
-	clock:setAlarm({0,crypto:rand_uniform(1,59),00}
 	enterCustomers(N-1).
 
 init_customer() ->
@@ -28,7 +27,7 @@ make_last_order() ->
 loop(N) -> 
 	receive
 		cup -> 
-			io:format("Customer ~p recived a cup of tea~n",[self()]),
+			io:format("Customer ~p received a cup of tea~n",[self()]),
 			%% start timer for reciving cup_finnished
 			clock:setAlarm({0,50,00}, cup_finnished),
 			loop(N);
