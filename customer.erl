@@ -5,6 +5,7 @@
 enterCustomers(0) -> 0;
 enterCustomers(N) when N > 0 ->
 	spawn(fun() -> init_customer() end),
+	main:getOwner() ! customer_enterd,
 	%% wait???  time between customers entering!
 	enterCustomers(N-1).
 
