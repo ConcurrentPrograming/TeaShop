@@ -30,16 +30,17 @@ work(List, {E,H,L}, C) ->  % {E= enterd H= hello L= leave} (nr) C= close (true/f
 					work(NewList, {E,H,L+1}, C)
 			end;
 		last_call ->
-			door ! close,
 			io:format("Process ~w at ~w: Owner screams out loud: Last call people! ~n",[self(), clock:get_time()]),
 			lastCall(List),
+			door ! close,
 			work(List, {E,H,L}, C);
 		close -> 
 			main:getChef() ! close,
 			case List of 
 				[] -> 
 					close({E,H,L});
-				_ -> work(List, {E,H,L}, true)
+				_ -> 
+					work(List, {E,H,L}, true)
 			end;
 		{serve, Customer} ->
 			io:format("Process ~w at ~w: Owner is serving a cup of tea to customer ~p~n",[self(), clock:get_time(),Customer]),
@@ -61,9 +62,9 @@ lastCall(NewList) ->
 	end.
 
 close({E,H,L}) ->
-	clock:stop(),
 	io:format("~n~nProcess ~w at ~w: Result:~n", [self(), clock:get_time()]),
 	io:format("Number of Customers who enterd: ~w~n", [E]),
 	io:format("Number of Customers who said hello: ~w~n", [H]),
 	io:format("Number of Customers who left: ~w~n", [L]),
-	io:format("----------------------------------------------~n").
+	io:format("----------------------------------------------~n"),
+	clock:stop().

@@ -1,5 +1,5 @@
 -module(customer).
--export([init_customer/0, enterCustomers/1, init_door/1]).
+-export([init_door/1]).
 
 
 init_door(N) ->
@@ -14,7 +14,7 @@ enterCustomers(N) when N > 0 ->
 	clock:setAlarm({0,RandomMinutes,00}, next_customer),
 	receive
 		close -> 
-			io:format("Process ~w at ~w: A customer was stopped from entering since its to late~n", [self(), clock:get_time()]);
+			enterCustomers(0);
 	   	next_customer ->
 			enterCustomers(N-1)
 	end.	
