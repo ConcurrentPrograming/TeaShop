@@ -5,41 +5,41 @@
 init_owner() ->
 	io:format("owner is initiated ~p~n",[self()]),
 	List = [],
-	work(List).
+	work(List,{0,0,0}).
 
 
 
-work(List, {e,h,l}) ->  % e= enterd h= hello l= leave
+work(List, {E,H,L}) ->  % E= enterd H= hello L= leave
 	%io:format("List=~w~n", [List]),
 	receive
 		customer_enterd ->
-			work(List, {e+1,h,l});
+			work(List, {E+1,H,L});
 		{hello, PID} ->
 			io:format("Customer ~p said hello to owner~n", [PID]),
 			NewList = lists:append([PID],List),
-			work(NewList, {e,h+1,l});
+			work(NewList, {E,H+1,L});
 		{bye, PID} -> 
 			io:format("Customer ~p said Bye Bye to owner~n", [PID]),
 			NewList = lists:delete(PID, List),
-			work(NewList, {e,h,l+1});
+			work(NewList, {E,H,L+1});
 		last_call ->
-			lastCall(List,List, {e,h,l}),
-			work(List, {e,h,l});
+			lastCall(List,List, {E,H,L}),
+			work(List, {E,H,L});
 		{serve, Customer} ->
 			io:format("Owner is serving a cup of tea to customer ~p~n",[Customer]),
 			Customer ! cup,
-			work(List, {e,h,l});
+			work(List, {E,H,L});
 		list_not_empty ->
 			main:getOrderList() ! {checkorder, self()},
-			work(List, {e,h,l})
+			work(List, {E,H,L})
 	end.
 
 
-lastCall(NewList, OldList, {e,h,l}) ->
+lastCall(NewList, OldList, {E,H,L}) ->
 	case NewList of
 		[X|XS] -> 
 			X ! last_call,
-			lastCall(XS, OldList, {e,h,l});
+			lastCall(XS, OldList, {E,H,L});
 		[] ->
-			work(OldList, {e,h,l})
+			work(OldList, {E,H,L})
 	end.
