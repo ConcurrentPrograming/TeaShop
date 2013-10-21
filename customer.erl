@@ -5,7 +5,7 @@
 enterCustomers(0) -> 0;
 enterCustomers(N) when N > 0 ->
 	spawn(fun() -> init_customer() end),
-	%% wait???  time between customers entering!
+	clock:setAlarm({0,crypto:rand_uniform(1,59),00}
 	enterCustomers(N-1).
 
 init_customer() ->
@@ -22,16 +22,26 @@ order(N) ->
 	main:getOrderList() ! {order, self()},
 	loop(N).
 
+make_last_order() ->
+	order(1).
 
 loop(N) -> 
 	receive
 		cup -> 
 			io:format("Customer ~p recived a cup of tea~n",[self()]),
 			%% start timer for reciving cup_finnished
-			clock:setAlarm({0,10,00}, cup_finnished),
+			clock:setAlarm({0,50,00}, cup_finnished),
 			loop(N);
 		cup_finnished ->
 			order(N-1);
-		last_call -> 0
+		last_call -> 
+			RandomNumber = crypto:rand_uniform(1,3),
+			case RandomNumber of
+				1 ->
+				io:format("~p fastly drinks his/her cup to order one last... ~n" , [self()]),
+				make_last_order();
+				2->
+				io:format("~p sits back and relaxes with his/her last cup  ~n" , [self()])
+			end
 	end.
 	
