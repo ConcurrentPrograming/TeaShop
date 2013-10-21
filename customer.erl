@@ -32,6 +32,6 @@ loop(N) ->
 			loop(N);
 		cup_finnished ->
 			order(N-1);
-		lastCall -> 0
+		last_call -> 0
 	end.
 	
