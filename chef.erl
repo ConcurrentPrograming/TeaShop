@@ -17,5 +17,5 @@ work() ->
 			main:getOrderList() ! {checkorder, self()},
 			work();
 		close -> 
-			io:format("Chef is leaving")
+			io:format("Chef is leaving ~n")
 	end.

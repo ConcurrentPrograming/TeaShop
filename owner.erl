@@ -25,7 +25,7 @@ work(List, {E,H,L}) ->  % E= enterd H= hello L= leave
 			NewList = lists:delete(PID, List),
 			work(NewList, {E,H,L+1});
 		last_call ->
-			io:format("last_call has been received by owner ~n"),
+			io:format("Owner screams out loud: Last call people! ~n"),
 			lastCall(List),
 			work(List, {E,H,L});
 		close -> 
