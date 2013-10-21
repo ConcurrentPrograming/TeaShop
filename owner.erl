@@ -28,12 +28,8 @@ work(List, {E,H,L}) ->  % E= enterd H= hello L= leave
 			lastCall(List),
 			work(List, {E,H,L});
 		close -> 
-<<<<<<< HEAD
 			main:getChef() ! close,
 			work(List, {E,H,L});
-=======
-			main:getChef() ! close;
->>>>>>> 21e2cca5555af67360b8ef1de522d35657a83502
 		{serve, Customer} ->
 			io:format("Owner is serving a cup of tea to customer ~p~n",[Customer]),
 			Customer ! cup,
