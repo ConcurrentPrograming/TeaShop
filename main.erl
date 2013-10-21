@@ -6,6 +6,7 @@
 start(0) -> io:format("main:start(0) ");
 start(N) ->
 	io:format("main:start(N) where N=~w, ~p~n", [N, self()]),
+	clock:start(10),
 	register(owner, spawn(fun() -> owner:init_owner() end)),
 	register(chef, spawn(fun() -> chef:init_chef() end)),
 	register(orderList, spawn(fun() -> orderqueue:init_orderqueue() end)),
