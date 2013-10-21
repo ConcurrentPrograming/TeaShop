@@ -15,5 +15,7 @@ work() ->
 			work();
 		list_not_empty ->
 			main:getOrderList() ! {checkorder, self()},
-			work()
+			work();
+		close -> 
+			io:format:("Chef is leaving")
 	end.
