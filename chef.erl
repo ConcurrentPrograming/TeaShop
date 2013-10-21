@@ -11,7 +11,9 @@ work() ->
 	receive
 		{serve, Customer} ->
 			io:format("Chef is serving a cup of tea to customer ~p~n",[Customer]),
-			Customer ! cup;
-		list_not_ ->
-			main:getOrderList() ! {checkorder, self()}
+			Customer ! cuo,
+			work();
+		list_not_empty ->
+			main:getOrderList() ! {checkorder, self()},
+			work()
 	end.
