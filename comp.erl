@@ -13,4 +13,6 @@ all() ->
 	Msg4 = compile:file(chef),
 	io:format("~p~n", [Msg4]),
 	Msg5 = compile:file(orderqueue),
-	io:format("~p~n", [Msg5]).
+	io:format("~p~n", [Msg5]),
+	Msg6 = compile:file(clock),
+	io:format("~p~n", [Msg6]).
