@@ -25,7 +25,7 @@ work(List, {E,H,L}, C) ->  % {E= enterd H= hello L= leave} (nr) C= close (true/f
 			NewList = lists:delete(PID, List),
 			case {NewList,C} of 
 				{[],true} ->
-					close({E,H,L});
+					close({E,H,L+1});
 				{_,_} ->
 					work(NewList, {E,H,L+1}, C)
 			end;

@@ -14,35 +14,37 @@ init_customer() ->
 	N = crypto:rand_uniform(1, 15),	
 	io:format("Customer ~p enterd and is planing to drink ~w cupps of tea ~n", [self(), N]),
 	main:getOwner() ! {hello, self()}, %% säg hej till ägaren!!!
-	order(N).
+	order(N, false).
 
 
-order(0) ->
+order(0,_) ->
 	main:getOwner() ! {bye, self()};
-order(N) ->
+order(N,L) ->
 	main:getOrderList() ! {order, self()},
-	loop(N).
+	loop(N, L).
 
-make_last_order() ->
-	order(1).
 
-loop(N) -> 
+loop(N, L) ->  % N = number of cupps L = LastCall
 	receive
 		cup -> 
 			io:format("Customer ~p received a cup of tea~n",[self()]),
 			%% start timer for reciving cup_finnished
 			clock:setAlarm({0,50,00}, cup_finnished),
-			loop(N);
+			loop(N, L);
 		cup_finnished ->
-			order(N-1);
+			case L of
+				false ->
+					order(N-1, L);
+				true ->
+					order(0, L)
+			end;
 		last_call -> 
-			RandomNumber = crypto:rand_uniform(1,3),
+			RandomNumber = crypto:rand_uniform(1,3),  %% some customers behave diffrently
 			case RandomNumber of
-				1 ->
-				io:format("~p fastly drinks his/her cup to order one last... ~n" , [self()]),
-				make_last_order();
-				2->
-				io:format("~p sits back and relaxes with his/her last cup  ~n" , [self()])
+				1 -> 
+					order(1, true);
+				2 ->
+					loop(0,true)
 			end
 	end.
 	
