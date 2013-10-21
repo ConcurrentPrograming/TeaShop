@@ -2,6 +2,8 @@
 -export([all/0]).
 
 all() -> 
+	Msg = c:flush(),
+	io:format("flush() ~p~n", [Msg]),
 	Msg1 = compile:file(main),
 	io:format("~p~n", [Msg1]),
 	Msg2 = compile:file(customer),

@@ -22,7 +22,9 @@ work(List) ->
 			work(NewList);
 		{serve, Customer} ->
 			io:format("Owner is serving a cup of tea to customer ~p~n",[Customer]),
-			Customer ! cup;
+			Customer ! cup,
+			work(List);
 		list_not_empty ->
-			main:getOrderList() ! {checkorder, self()}
+			main:getOrderList() ! {checkorder, self()},
+			work(List)
 	end.
