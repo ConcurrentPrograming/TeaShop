@@ -25,7 +25,7 @@ work(List, {E,H,L}) ->  % E= enterd H= hello L= leave
 			NewList = lists:delete(PID, List),
 			work(NewList, {E,H,L+1});
 		last_call ->
-			lastCall(List,List, {E,H,L}),
+			lastCall(List),
 			work(List, {E,H,L});
 		close -> 
 			main:getChef() ! close,
@@ -40,11 +40,11 @@ work(List, {E,H,L}) ->  % E= enterd H= hello L= leave
 	end.
 
 
-lastCall(NewList, OldList, {E,H,L}) ->
+lastCall(NewList) ->
 	case NewList of
 		[X|XS] -> 
 			X ! last_call,
-			lastCall(XS, OldList, {E,H,L});
+			lastCall(XS);
 		[] ->
-			work(OldList, {E,H,L})
+			0
 	end.
