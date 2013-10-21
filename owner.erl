@@ -62,7 +62,7 @@ lastCall(NewList) ->
 
 close({E,H,L}) ->
 	clock:stop(),
-	io:format("~n~n Result:~n"),
+	io:format("~n~nProcess ~w at ~w: Result:~n", [self(), clock:get_time()]),
 	io:format("Number of Customers who enterd: ~w~n", [E]),
 	io:format("Number of Customers who said hello: ~w~n", [H]),
 	io:format("Number of Customers who left: ~w~n", [L]),

@@ -10,7 +10,7 @@ work() ->
 	%io:format("Chef is working ~n"),
 	receive
 		{serve, Customer} ->
-			io:format("~nProcess ~w at ~w: Chef is serving a cup of tea to customer ~p~n~n",[self(), clock:get_time(),Customer]),
+			io:format("Process ~w at ~w: Chef is serving a cup of tea to customer ~p~n",[self(), clock:get_time(),Customer]),
 			Customer ! cup,
 			work();
 		list_not_empty ->
