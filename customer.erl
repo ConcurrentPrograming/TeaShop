@@ -18,14 +18,20 @@ init_customer() ->
 
 order(0) ->
 	main:getOwner() ! {bye, self()};
-order(N) -> 
+order(N) ->
 	main:getOrderList() ! {order, self()},
+	loop(N).
+
+
+loop(N) -> 
 	receive
 		cup -> 
-			%%kunden får en kopp te
-			%%wait   == tiden det tar o dricka en kopp!
 			io:format("Customer ~p recived a cup of tea~n",[self()]),
-			order(N-1); %% tillsvidare
+			%% start timer for reciving cup_finnished
+			clock:setAlarm({0,15,00}, cup_finnished),
+			loop(N);
+		cup_finnished ->
+			order(N-1);
 		lastCall -> 0
 	end.
 	
