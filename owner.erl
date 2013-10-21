@@ -3,9 +3,9 @@
 
 
 init_owner() ->
-	io:format("owner is initiated ~p~n",[self()]),
-	clock:setAlarm({3,0,0}, close),
-	clock:setAlarm({2,50,0}, last_call),
+	io:format("Process ~w at ~w: Owner is initiated~n",[self(),clock:get_time()]),
+	clock:setAlarm({5,0,0}, close),
+	clock:setAlarm({4,50,0}, last_call),
 	List = [],
 	work(List,{0,0,0}, false).
 
@@ -17,20 +17,21 @@ work(List, {E,H,L}, C) ->  % {E= enterd H= hello L= leave} (nr) C= close (true/f
 		customer_enterd ->
 			work(List, {E+1,H,L}, C);
 		{hello, PID} ->
-			io:format("Customer ~p said hello to owner~n", [PID]),
+			io:format("Process ~w at ~w: Customer ~p said hello to owner~n", [self(), clock:get_time(),PID]),
 			NewList = lists:append([PID],List),
 			work(NewList, {E,H+1,L}, C);
 		{bye, PID} -> 
-			io:format("Customer ~p said Bye Bye to owner~n", [PID]),
+			io:format("Process ~w at ~w: Customer ~p said Bye Bye to owner~n", [self(), clock:get_time(),PID]),
 			NewList = lists:delete(PID, List),
 			case {NewList,C} of 
 				{[],true} ->
-					close({E,H,L});
+					close({E,H,L+1});
 				{_,_} ->
 					work(NewList, {E,H,L+1}, C)
 			end;
 		last_call ->
-			io:format("Owner screams out loud: Last call people! ~n"),
+			door ! close,
+			io:format("Process ~w at ~w: Owner screams out loud: Last call people! ~n",[self(), clock:get_time()]),
 			lastCall(List),
 			work(List, {E,H,L}, C);
 		close -> 
@@ -41,7 +42,7 @@ work(List, {E,H,L}, C) ->  % {E= enterd H= hello L= leave} (nr) C= close (true/f
 				_ -> work(List, {E,H,L}, true)
 			end;
 		{serve, Customer} ->
-			io:format("Owner is serving a cup of tea to customer ~p~n",[Customer]),
+			io:format("Process ~w at ~w: Owner is serving a cup of tea to customer ~p~n",[self(), clock:get_time(),Customer]),
 			Customer ! cup,
 			work(List, {E,H,L}, C);
 		list_not_empty ->
@@ -60,6 +61,7 @@ lastCall(NewList) ->
 	end.
 
 close({E,H,L}) ->
+	clock:stop(),
 	io:format("~n~n Result:~n"),
 	io:format("Number of Customers who enterd: ~w~n", [E]),
 	io:format("Number of Customers who said hello: ~w~n", [H]),
