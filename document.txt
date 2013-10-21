@@ -1,0 +1,40 @@
+In our solution we created 5 modules which are:
+
+main
+- this module is the main file of our program. When starting the program creates processes for the other modules and 
+also starts the clock.
+
+customer
+-this module initiates a customer that is going to enter the shop and buy some awesome tee.
+
+owner
+-this module initiates the owner of the shop which handles the orders that customers make.
+
+chef
+-this module initiates the guy that works at the tea shop, he/she also handles the but
+leaves at closing time.
+
+orderlist
+-this module handles the queue for the orders that are being made and also the last
+orders.
+
+To start the program you type the following : main:start(n) , where n is the input of how many customers you want to
+add (from 0 to any positive integer).
+
+The program generates random number of cups per customer in the range 1-14 cups (because we don't think that
+a customer should not drink more than that).
+
+The program also generates a random time for a customer to enter the shop. The time is being regenerated for
+each customer in the range of 0-59 minutes and this we done for 2 reasons.
+
+1. To get some customers actually enter the shop before closing time.
+2. Higher possibility of getting 2 customers entering the shop at the same time.
+
+Not only this, the program also randomly generates the drinking time per customer in the range of 5-30 minutes per cup
+because we wanted to make the drinking time a little bit more realistic. You often don't drink something at the exact 
+same time range.
+
+Even if you for example in your argument put that 50 persons will enter the shop, many of them might try to enter
+the shop after last call or closing time, and they will be denied to enter.
+
+
