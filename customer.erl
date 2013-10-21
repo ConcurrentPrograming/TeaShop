@@ -6,8 +6,13 @@ enterCustomers(0) -> 0;
 enterCustomers(N) when N > 0 ->
 	spawn(fun() -> init_customer() end),
 	main:getOwner() ! customer_enterd,
-	%% wait???  time between customers entering!
-	enterCustomers(N-1).
+	RandomHour = crypto:rand_uniform(0,2),
+	RandomMinutes = crypto:rand_uniform(0,20),
+	clock:setAlarm({RandomHour,RandomMinutes,00}, next_customer),
+	receive
+	   next_customer ->
+		enterCustomers(N-1)
+	end.	
 
 init_customer() ->
 	%% N = slumpa antal koppar som denna kund vill dricka
