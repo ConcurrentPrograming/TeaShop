@@ -26,7 +26,7 @@ order(N) ->
 loop(N) -> 
 	receive
 		cup -> 
-			io:format("Customer ~p recived a cup of tea~n",[self()]),
+			io:format("Customer ~p received a cup of tea~n",[self()]),
 			%% start timer for reciving cup_finnished
 			clock:setAlarm({0,10,00}, cup_finnished),
 			loop(N);
