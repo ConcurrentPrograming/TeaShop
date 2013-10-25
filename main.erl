@@ -8,9 +8,10 @@ start() -> io:format("main:start(N) where N = nr of customers ~n").
 start(N) ->
 	io:format("main:start(N) where N=~w, ~p~n", [N, self()]),
 	clock:start(1),
+	register(orderList, spawn(fun() -> orderqueue:init_orderqueue() end)),
 	register(owner, spawn(fun() -> owner:init_owner() end)),
 	register(chef, spawn(fun() -> chef:init_chef() end)),
-	register(orderList, spawn(fun() -> orderqueue:init_orderqueue() end)),
+	
 	customer:init_door(N).
 
 getOrderList() -> orderList.

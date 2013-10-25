@@ -48,10 +48,6 @@ Final submisson: problems fixxed:
 	fix: the orderqueue now only sends list_not_empty to workers how are in the building, this alone doesn't solve the problem but we also added that 
 		 chef/owner waits for confirmation when doing "checkorder", this makes most sense out of a "real" resturant senario, since checking the orderlist and then going 			 home doesnt make sense 
 
-	
-3. * Customers responding to last call will chug their last drink too fast.
-		fix: a refrence ( from make_ref()) is created when ordering, it follows the order to orderqueue where it is stored with the pid in a tupple.
-			when the cup is created and served the ref follows the cup to the customer where he can us it in the cup finnished alarm! the customer holds one ref for as long 				as he is holding that cup. 
 
 
 
